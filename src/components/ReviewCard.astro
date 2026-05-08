@@ -1,0 +1,46 @@
+---
+import type { CollectionEntry } from "astro:content";
+import Rating from "./Rating.astro";
+
+interface Props {
+  review: CollectionEntry<"reviews">;
+}
+
+const { review } = Astro.props;
+const base = import.meta.env.BASE_URL;
+const url = `${base}reviews/${review.data.slug}/`;
+const date = review.data.date.toLocaleDateString("lv-LV", {
+  year: "numeric",
+  month: "short",
+  day: "numeric",
+});
+---
+
+<a
+  class="review-card"
+  href={url}
+  data-review-card
+  data-title={review.data.title.toLowerCase()}
+  data-brand={review.data.brand}
+  data-type={review.data.type}
+  data-rating={review.data.rating}
+>
+  <div class="review-card-image">
+    <img src={review.data.coverImage} alt={review.data.coverAlt} loading="lazy" />
+  </div>
+  <div class="review-card-body">
+    <div class="meta-line">
+      <span>{review.data.brand}</span>
+      <span>·</span>
+      <span>{review.data.type}</span>
+      <span>·</span>
+      <time datetime={review.data.date.toISOString()}>{date}</time>
+    </div>
+    <h3>{review.data.title}</h3>
+    <Rating value={review.data.rating} />
+    <p>{review.data.excerpt}</p>
+    <div class="tag-list" aria-label="Birkas">
+      {review.data.tags.map((tag) => <span class="tag">{tag}</span>)}
+    </div>
+  </div>
+</a>

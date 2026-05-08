@@ -1,0 +1,104 @@
+---
+import { getCollection } from "astro:content";
+import BaseLayout from "@layouts/BaseLayout.astro";
+import ReviewCard from "@components/ReviewCard.astro";
+
+const reviews = (await getCollection("reviews")).sort(
+  (a, b) => b.data.date.valueOf() - a.data.date.valueOf(),
+);
+const brands = [...new Set(reviews.map((review) => review.data.brand))].sort();
+const types = [...new Set(reviews.map((review) => review.data.type))].sort();
+---
+
+<BaseLayout
+  title="Apskati | Siļķu Paradīze"
+  description="Pārlūko Baltijas siļķu apskatus pēc zīmola, veida un vērtējuma."
+  current="reviews"
+>
+  <main class="page-shell">
+    <section class="page-heading">
+      <div>
+        <p class="eyebrow">Apskatu galerija</p>
+        <h1>Siļķu apskati</h1>
+        <p>Meklē plauktā pēc produkta nosaukuma, zīmola, pagatavošanas veida vai vērtējuma.</p>
+      </div>
+    </section>
+
+    <section class="gallery-layout" data-gallery>
+      <aside class="panel filters" aria-label="Apskatu filtri">
+        <div class="filter-group">
+          <label class="filter-label" for="review-search">Meklēt</label>
+          <input class="input" id="review-search" type="search" placeholder="Produkta nosaukums..." data-search />
+        </div>
+        <div class="filter-group">
+          <label class="filter-label" for="brand-filter">Zīmols</label>
+          <select class="select" id="brand-filter" data-brand-filter>
+            <option value="">Visi zīmoli</option>
+            {brands.map((brand) => <option value={brand}>{brand}</option>)}
+          </select>
+        </div>
+        <div class="filter-group">
+          <label class="filter-label" for="type-filter">Veids</label>
+          <select class="select" id="type-filter" data-type-filter>
+            <option value="">Visi veidi</option>
+            {types.map((type) => <option value={type}>{type}</option>)}
+          </select>
+        </div>
+        <div class="filter-group">
+          <label class="filter-label" for="rating-filter">Minimālais vērtējums</label>
+          <select class="select" id="rating-filter" data-rating-filter>
+            <option value="0">Jebkurš vērtējums</option>
+            <option value="4.5">4.5+</option>
+            <option value="4">4.0+</option>
+            <option value="3.5">3.5+</option>
+          </select>
+        </div>
+      </aside>
+
+      <div>
+        <div class="review-grid" data-review-grid>
+          {reviews.map((review) => <ReviewCard review={review} />)}
+        </div>
+        <div class="empty-state" data-empty-state>
+          Pagaidām nav apskatu, kas atbilst šiem filtriem.
+        </div>
+      </div>
+    </section>
+  </main>
+</BaseLayout>
+
+<script>
+  const gallery = document.querySelector("[data-gallery]");
+  const cards = Array.from(document.querySelectorAll<HTMLElement>("[data-review-card]"));
+  const search = gallery?.querySelector<HTMLInputElement>("[data-search]");
+  const brand = gallery?.querySelector<HTMLSelectElement>("[data-brand-filter]");
+  const type = gallery?.querySelector<HTMLSelectElement>("[data-type-filter]");
+  const rating = gallery?.querySelector<HTMLSelectElement>("[data-rating-filter]");
+  const empty = gallery?.querySelector<HTMLElement>("[data-empty-state]");
+
+  const applyFilters = () => {
+    const query = search?.value.trim().toLowerCase() ?? "";
+    const brandValue = brand?.value ?? "";
+    const typeValue = type?.value ?? "";
+    const ratingValue = Number(rating?.value ?? 0);
+    let visible = 0;
+
+    for (const card of cards) {
+      const titleMatches = card.dataset.title?.includes(query) ?? true;
+      const brandMatches = !brandValue || card.dataset.brand === brandValue;
+      const typeMatches = !typeValue || card.dataset.type === typeValue;
+      const ratingMatches = Number(card.dataset.rating ?? 0) >= ratingValue;
+      const matches = titleMatches && brandMatches && typeMatches && ratingMatches;
+
+      card.style.display = matches ? "" : "none";
+      if (matches) visible += 1;
+    }
+
+    if (empty) empty.style.display = visible === 0 ? "block" : "none";
+  };
+
+  search?.addEventListener("input", applyFilters);
+  brand?.addEventListener("change", applyFilters);
+  type?.addEventListener("change", applyFilters);
+  rating?.addEventListener("change", applyFilters);
+</script>

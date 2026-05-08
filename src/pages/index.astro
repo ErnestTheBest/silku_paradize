@@ -1,0 +1,83 @@
+---
+import { getCollection } from "astro:content";
+import BaseLayout from "@layouts/BaseLayout.astro";
+import ReviewCard from "@components/ReviewCard.astro";
+
+const reviews = (await getCollection("reviews"))
+  .sort((a, b) => b.data.date.valueOf() - a.data.date.valueOf())
+  .slice(0, 3);
+
+const base = import.meta.env.BASE_URL;
+const heroImage =
+  "https://images.unsplash.com/photo-1500530855697-b586d89ba3ee?auto=format&fit=crop&w=1800&q=82";
+---
+
+<BaseLayout
+  title="Siļķu Paradīze"
+  description="Rūpīgi veidots Baltijas siļķu apskatu arhīvs."
+  current="home"
+>
+  <main>
+    <section class="hero" style={`--hero-image: url('${heroImage}')`}>
+      <div class="page-shell hero-content">
+        <p class="eyebrow">Baltijas apskatu arhīvs</p>
+        <h1>Siļķu Paradīze</h1>
+        <p>
+          Mierīga un prasīga vieta kūpinātām, marinētām, garšvielotām un citādi iegaumējamām siļķēm.
+        </p>
+        <div class="button-row">
+          <a class="button button-primary" href={`${base}reviews/`}>Skatīt apskatus</a>
+          <a class="button button-secondary" href="#mission">Par misiju</a>
+        </div>
+      </div>
+    </section>
+
+    <section class="section page-shell" id="mission">
+      <div class="mission-grid">
+        <div class="panel panel-pad">
+          <p class="eyebrow">Mūsu misija</p>
+          <h2>Pacelt Baltijas auksto galdu, vienu fileju pēc otras.</h2>
+          <p>
+            Pieticīgā siļķe ir pelnījusi tādu pašu uzmanību, kādu cilvēki velta kafijai, vīnam un sieram.
+            Šeit katra burciņa, paplāte un kūpinātavas atradums kļūst par mazu pierakstu:
+            kas tas ir, no kurienes tas nāk, kā tas garšo un vai tam ir vieta uz galda.
+          </p>
+          <div class="metric-row" aria-label="Vietnes galvenie rādītāji">
+            <div class="metric">
+              <strong>{reviews.length}</strong>
+              <span>sākuma apskati</span>
+            </div>
+            <div class="metric">
+              <strong>5</strong>
+              <span>punktu vērtējums</span>
+            </div>
+            <div class="metric">
+              <strong>MD</strong>
+              <span>satura faili</span>
+            </div>
+          </div>
+        </div>
+        <div class="panel image-panel">
+          <img
+            src="https://images.unsplash.com/photo-1553621042-f6e147245754?auto=format&fit=crop&w=1200&q=82"
+            alt="Jūras veltes uz tīra galda ar zaļumiem un citrusu"
+          />
+        </div>
+      </div>
+    </section>
+
+    <section class="section-tight page-shell">
+      <div class="section-heading">
+        <p class="eyebrow">Jaunākie pieraksti</p>
+        <h2>Svaigi no apskatu plaukta</h2>
+        <p>
+          Šīs kartītes tiek veidotas no Markdown ierakstiem. Pievieno jaunu failu
+          <code>src/content/reviews</code>, un tas parādīsies pēc nākamās izbuves.
+        </p>
+      </div>
+      <div class="review-grid">
+        {reviews.map((review) => <ReviewCard review={review} />)}
+      </div>
+    </section>
+  </main>
+</BaseLayout>

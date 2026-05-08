@@ -1,0 +1,118 @@
+---
+import { getCollection, render, type CollectionEntry } from "astro:content";
+import BaseLayout from "@layouts/BaseLayout.astro";
+import Rating from "@components/Rating.astro";
+import TastingNotes from "@components/TastingNotes.astro";
+
+export async function getStaticPaths() {
+  const reviews = await getCollection("reviews");
+
+  return reviews.map((review) => ({
+    params: { slug: review.data.slug },
+    props: { review },
+  }));
+}
+
+interface Props {
+  review: CollectionEntry<"reviews">;
+}
+
+const { review } = Astro.props;
+const { Content } = await render(review);
+const allReviews = (await getCollection("reviews"))
+  .filter((entry) => entry.data.slug !== review.data.slug)
+  .sort((a, b) => b.data.rating - a.data.rating)
+  .slice(0, 3);
+const base = import.meta.env.BASE_URL;
+const heroImage = review.data.heroImage ?? review.data.coverImage;
+const formattedDate = review.data.date.toLocaleDateString("lv-LV", {
+  year: "numeric",
+  month: "long",
+  day: "numeric",
+});
+---
+
+<BaseLayout
+  title={`${review.data.title} | Siļķu Paradīze`}
+  description={review.data.excerpt}
+  current="reviews"
+>
+  <main class="page-shell">
+    <section class="section-tight">
+      <a class="back-link" href={`${base}reviews/`}>← Atpakaļ uz apskatiem</a>
+
+      <div class="review-detail">
+        <article>
+          <div class="detail-hero">
+            <img src={heroImage} alt={review.data.coverAlt} />
+          </div>
+
+          <div class="panel article-card">
+            <div class="meta-line">
+              <span>{review.data.brand}</span>
+              <span>·</span>
+              <span>{review.data.type}</span>
+              <span>·</span>
+              <time datetime={review.data.date.toISOString()}>{formattedDate}</time>
+            </div>
+            <h1>{review.data.title}</h1>
+            <Rating value={review.data.rating} />
+            <Content />
+
+            <div class="pro-con-grid">
+              <section class="list-panel good">
+                <h3>Plusi</h3>
+                <ul>
+                  {review.data.pros.map((item) => <li>{item}</li>)}
+                </ul>
+              </section>
+              <section class="list-panel bad">
+                <h3>Minusi</h3>
+                <ul>
+                  {review.data.cons.map((item) => <li>{item}</li>)}
+                </ul>
+              </section>
+            </div>
+          </div>
+        </article>
+
+        <aside class="sidebar-stack">
+          <section class="panel sidebar-card">
+            <h3>Izcelsme</h3>
+            <p>{review.data.origin}</p>
+            <div class="tag-list">
+              {review.data.tags.map((tag) => <span class="tag">{tag}</span>)}
+            </div>
+          </section>
+
+          {
+            review.data.tastingNotes && (
+              <section class="panel sidebar-card">
+                <h3>Degustācijas piezīmes</h3>
+                <TastingNotes notes={review.data.tastingNotes} />
+              </section>
+            )
+          }
+
+          <section class="panel sidebar-card">
+            <h3>Augstāk vērtētās siļķes</h3>
+            <div class="mini-list">
+              {
+                allReviews.map((entry) => (
+                  <a class="mini-review" href={`${base}reviews/${entry.data.slug}/`}>
+                    <img src={entry.data.coverImage} alt={entry.data.coverAlt} loading="lazy" />
+                    <div>
+                      <div class="meta-line">{entry.data.type}</div>
+                      <h4>{entry.data.title}</h4>
+                      <Rating value={entry.data.rating} label={false} />
+                    </div>
+                  </a>
+                ))
+              }
+            </div>
+          </section>
+        </aside>
+      </div>
+    </section>
+  </main>
+</BaseLayout>
