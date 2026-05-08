@@ -254,6 +254,11 @@ select {
   margin-bottom: 28px;
 }
 
+.centered-heading {
+  margin-inline: auto;
+  text-align: center;
+}
+
 .section-heading h2,
 .page-heading h1 {
   margin: 0;
@@ -331,6 +336,69 @@ select {
   color: var(--muted);
   font-size: 0.85rem;
   font-weight: 700;
+}
+
+.curators-section {
+  background: var(--surface-blue);
+}
+
+.curator-grid {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: 24px;
+  max-width: 920px;
+  margin-inline: auto;
+}
+
+.curator-card {
+  display: grid;
+  min-width: 0;
+  overflow: hidden;
+  border: 1px solid rgba(255, 255, 255, 0.86);
+  border-radius: var(--radius-card);
+  background: var(--surface-card);
+  box-shadow: var(--shadow);
+}
+
+.curator-image {
+  height: clamp(320px, 42vw, 500px);
+  overflow: hidden;
+  background: var(--surface-mist);
+}
+
+.curator-image img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  object-position: center top;
+}
+
+.curator-body {
+  display: grid;
+  gap: 10px;
+  padding: 24px;
+  text-align: center;
+}
+
+.curator-body h3 {
+  margin: 0;
+  color: var(--primary);
+  font-size: 1.45rem;
+  line-height: 1.2;
+}
+
+.curator-role {
+  margin: 0;
+  color: var(--secondary);
+  font-size: 0.78rem;
+  font-weight: 800;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+}
+
+.curator-body p:last-child {
+  margin: 0;
+  color: var(--muted);
 }
 
 .review-grid {
@@ -686,6 +754,7 @@ select {
   }
 
   .mission-grid,
+  .curator-grid,
   .gallery-layout,
   .review-detail {
     grid-template-columns: 1fr;
