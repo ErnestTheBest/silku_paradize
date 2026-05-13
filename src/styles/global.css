@@ -161,6 +161,37 @@ select {
   font-weight: 800;
 }
 
+.footer-links {
+  display: inline-flex;
+  align-items: center;
+  gap: 14px;
+}
+
+.footer-icon-link {
+  display: inline-grid;
+  width: 36px;
+  height: 36px;
+  place-items: center;
+  border: 1px solid rgba(191, 200, 204, 0.85);
+  border-radius: 999px;
+  color: var(--primary);
+  transition:
+    background-color 160ms ease,
+    color 160ms ease,
+    transform 160ms ease;
+}
+
+.footer-icon-link:hover {
+  background: var(--primary);
+  color: white;
+  transform: translateY(-1px);
+}
+
+.footer-icon-link svg {
+  width: 19px;
+  height: 19px;
+}
+
 .hero {
   display: grid;
   min-height: min(720px, calc(100vh - 68px));

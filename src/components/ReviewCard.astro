@@ -1,6 +1,7 @@
 ---
 import type { CollectionEntry } from "astro:content";
 import Rating from "./Rating.astro";
+import { getReviewImageSrc } from "../data/reviewImages";
 
 interface Props {
   review: CollectionEntry<"reviews">;
@@ -9,6 +10,7 @@ interface Props {
 const { review } = Astro.props;
 const base = import.meta.env.BASE_URL;
 const url = `${base}reviews/${review.data.slug}/`;
+const coverImage = getReviewImageSrc(review.data.coverImage);
 const date = review.data.date.toLocaleDateString("lv-LV", {
   year: "numeric",
   month: "short",
@@ -26,7 +28,7 @@ const date = review.data.date.toLocaleDateString("lv-LV", {
   data-rating={review.data.rating}
 >
   <div class="review-card-image">
-    <img src={review.data.coverImage} alt={review.data.coverAlt} loading="lazy" />
+    <img src={coverImage} alt={review.data.coverAlt} loading="lazy" />
   </div>
   <div class="review-card-body">
     <div class="meta-line">

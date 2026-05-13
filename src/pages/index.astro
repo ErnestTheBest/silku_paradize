@@ -2,13 +2,30 @@
 import { getCollection } from "astro:content";
 import BaseLayout from "@layouts/BaseLayout.astro";
 import ReviewCard from "@components/ReviewCard.astro";
-import heroImage from "../img/hero.png";
+import heroImage from "../assets/site/hero.jpg";
+import missionImage from "../assets/site/mission.jpg";
+import meImage from "../assets/people/ernests.jpg";
+import notMeImage from "../assets/people/alisa.jpg";
 
-const reviews = (await getCollection("reviews"))
-  .sort((a, b) => b.data.date.valueOf() - a.data.date.valueOf())
-  .slice(0, 3);
+const allReviews = (await getCollection("reviews")).sort(
+  (a, b) => b.data.date.valueOf() - a.data.date.valueOf(),
+);
+const reviews = allReviews.slice(0, 3);
+const brandCount = new Set(allReviews.map((review) => review.data.brand)).size;
 
 const base = import.meta.env.BASE_URL;
+const experienceStart = new Date(2026, 4, 1);
+const today = new Date();
+const yearsExperience = Math.max(
+  0,
+  today.getFullYear() -
+    experienceStart.getFullYear() -
+    (today.getMonth() < experienceStart.getMonth() ||
+    (today.getMonth() === experienceStart.getMonth() &&
+      today.getDate() < experienceStart.getDate())
+      ? 1
+      : 0),
+);
 ---
 
 <BaseLayout
@@ -43,23 +60,23 @@ const base = import.meta.env.BASE_URL;
           </p>
           <div class="metric-row" aria-label="Vietnes galvenie rādītāji">
             <div class="metric">
-              <strong>{reviews.length}</strong>
-              <span>sākuma apskati</span>
+              <strong>{allReviews.length}</strong>
+              <span>Apskati</span>
             </div>
             <div class="metric">
-              <strong>5</strong>
-              <span>punktu vērtējums</span>
+              <strong>{yearsExperience}</strong>
+              <span>Gadu pieredze</span>
             </div>
             <div class="metric">
-              <strong>MD</strong>
-              <span>satura faili</span>
+              <strong>{brandCount}</strong>
+              <span>Zīmoli</span>
             </div>
           </div>
         </div>
         <div class="panel image-panel">
           <img
-            src="https://images.unsplash.com/photo-1553621042-f6e147245754?auto=format&fit=crop&w=1200&q=82"
-            alt="Jūras veltes uz tīra galda ar zaļumiem un citrusu"
+            src={missionImage.src}
+            alt="Ernests pie siļķu pierakstiem"
           />
         </div>
       </div>
@@ -80,17 +97,16 @@ const base = import.meta.env.BASE_URL;
           <article class="curator-card">
             <div class="curator-image">
               <img
-                src="https://images.unsplash.com/photo-1583394293214-28ded15ee548?auto=format&fit=crop&w=1000&q=82"
-                alt="Pavārs tumšzilā priekšautā gaišā virtuvē"
+                src={meImage.src}
+                alt="Ernests Pakers"
                 loading="lazy"
               />
             </div>
             <div class="curator-body">
-              <h3>Artūrs Kalniņš</h3>
-              <p class="curator-role">Kūpinātavu kritiķis</p>
+              <h3>Ernests Pakers</h3>
+              <p class="curator-role">Aizmāršīgais kritiķis</p>
               <p>
-                Trešās paaudzes piekrastes cilvēks ar degunu dūmu niansēm un pacietību
-                pārbaudīt, vai fileja turas uz rupjmaizes tā, kā tai vajadzētu.
+                Tas pats cilvēks, kurš aizmirst, kuru siļķi viņš jau ir nogaršojis.
               </p>
             </div>
           </article>
@@ -98,17 +114,16 @@ const base = import.meta.env.BASE_URL;
           <article class="curator-card">
             <div class="curator-image">
               <img
-                src="https://images.unsplash.com/photo-1494790108377-be9c29b29330?auto=format&fit=crop&w=1000&q=82"
-                alt="Pārtikas kritiķe gaišā lina kreklā pie tirgus"
+                src={notMeImage.src}
+                alt="Alisa Zurmitai"
                 loading="lazy"
               />
             </div>
             <div class="curator-body">
-              <h3>Elīna Ozola</h3>
-              <p class="curator-role">Zīmolu antropoloģe</p>
+              <h3>Alisa Zurmitai</h3>
+              <p class="curator-role">Smējās par vietnes nosaukumu</p>
               <p>
-                Pēta marinādes, etiķa līdzsvaru un reģionālās receptes, lai saprastu,
-                kur beidzas nostalģija un sākas patiešām laba siļķe.
+                Viņa teica, ka tā ir lieliska ideja, un to atbalstīja.
               </p>
             </div>
           </article>

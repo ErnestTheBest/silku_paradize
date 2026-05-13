@@ -3,6 +3,7 @@ import { getCollection, render, type CollectionEntry } from "astro:content";
 import BaseLayout from "@layouts/BaseLayout.astro";
 import Rating from "@components/Rating.astro";
 import TastingNotes from "@components/TastingNotes.astro";
+import { getReviewImageSrc } from "../../data/reviewImages";
 
 export async function getStaticPaths() {
   const reviews = await getCollection("reviews");
@@ -24,7 +25,7 @@ const allReviews = (await getCollection("reviews"))
   .sort((a, b) => b.data.rating - a.data.rating)
   .slice(0, 3);
 const base = import.meta.env.BASE_URL;
-const heroImage = review.data.heroImage ?? review.data.coverImage;
+const heroImage = getReviewImageSrc(review.data.heroImage ?? review.data.coverImage);
 const formattedDate = review.data.date.toLocaleDateString("lv-LV", {
   year: "numeric",
   month: "long",
@@ -100,7 +101,11 @@ const formattedDate = review.data.date.toLocaleDateString("lv-LV", {
               {
                 allReviews.map((entry) => (
                   <a class="mini-review" href={`${base}reviews/${entry.data.slug}/`}>
-                    <img src={entry.data.coverImage} alt={entry.data.coverAlt} loading="lazy" />
+                    <img
+                      src={getReviewImageSrc(entry.data.coverImage)}
+                      alt={entry.data.coverAlt}
+                      loading="lazy"
+                    />
                     <div>
                       <div class="meta-line">{entry.data.type}</div>
                       <h4>{entry.data.title}</h4>
