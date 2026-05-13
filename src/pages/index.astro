@@ -2,14 +2,13 @@
 import { getCollection } from "astro:content";
 import BaseLayout from "@layouts/BaseLayout.astro";
 import ReviewCard from "@components/ReviewCard.astro";
+import heroImage from "../img/hero.png";
 
 const reviews = (await getCollection("reviews"))
   .sort((a, b) => b.data.date.valueOf() - a.data.date.valueOf())
   .slice(0, 3);
 
 const base = import.meta.env.BASE_URL;
-const heroImage =
-  "https://images.unsplash.com/photo-1500530855697-b586d89ba3ee?auto=format&fit=crop&w=1800&q=82";
 ---
 
 <BaseLayout
@@ -18,7 +17,7 @@ const heroImage =
   current="home"
 >
   <main>
-    <section class="hero" style={`--hero-image: url('${heroImage}')`}>
+    <section class="hero" style={`--hero-image: url('${heroImage.src}')`}>
       <div class="page-shell hero-content">
         <p class="eyebrow">Baltijas apskatu arhīvs</p>
         <h1>Siļķu Paradīze</h1>
