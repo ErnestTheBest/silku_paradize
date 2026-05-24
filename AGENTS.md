@@ -7,6 +7,32 @@
 - The Compose service sets `ASTRO_BASE=/` for local development and mounts the repo into `/app` for live reload.
 - Do not try to start the site locally with npm. If the site needs to be restarted or rebuilt, use Docker Compose rather than a direct Node/Astro dev server.
 
+# Repository Layout
+
+- This is an Astro site.
+- Pages live in `src/pages/`.
+- Shared layouts live in `src/layouts/`.
+- Reusable Astro components live in `src/components/`.
+- Global styling lives in `src/styles/global.css`.
+- Content collections and review markdown live under `src/content/`.
+- Review images and other site assets live under `src/assets/`.
+- Review image imports and rating helpers live under `src/data/`.
+
+# Engineering Notes
+
+- Keep changes scoped to the requested page, component, content entry, or asset.
+- Follow the existing Astro component patterns before introducing new abstractions.
+- Prefer existing helpers in `src/data/` for review ratings and image mapping.
+- Keep public-facing copy in Latvian unless the user asks for another language.
+- Review the final diff before handing work back, and mention any notable risk or follow-up.
+- When updating this file, check it against the Codex best practices: https://developers.openai.com/codex/learn/best-practices
+
+# Verification
+
+- After code or content changes, verify through Docker Compose from the repository root.
+- Prefer `docker compose exec -T web npm run build` for build, type, and Astro checks.
+- If the web service is not running or a check cannot be run, say so clearly and include the command that should be run next.
+
 # Review Creation Workflow
 
 - When the user asks to add a new review, first inspect the current review schema and examples if needed:
@@ -42,4 +68,4 @@
 - Existing review card assets are square. When preparing a supplied square product image, resize it to match the current review asset size unless the user requests a different crop.
 - The visible rating is calculated from the five scored criteria. Do not add a separate rating field.
 - Unless the user requests another language, write the final public review copy in Latvian.
-- After adding or changing a review, verify through Docker Compose, for example `docker compose exec -T web npm run build`. Do not run the site with direct `npm run dev`.
+- After adding or changing a review, follow the verification rules above. Do not run the site with direct `npm run dev`.

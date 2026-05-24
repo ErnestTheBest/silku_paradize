@@ -3,10 +3,10 @@ title: "Zigmas Classical Slightly Salted"
 slug: "zigmas-classical-slightly-salted"
 brand: "Zigmas"
 type: "Slightly salted"
-origin: "Nav norādīts"
+origin: "Latvija"
 date: 2026-05-25
 excerpt: "Viena no labākajām siļķēm, ko esmu mēģinājis: ļoti labs sāls balanss, kvalitatīva fileja un lieliska cena."
-coverImage: "zigmas-slightly-salted"
+coverImage: "zigmas-classical-slightly-salted"
 coverAlt: "Zigmas Classical Slightly Salted"
 tags:
   - Zigmas
