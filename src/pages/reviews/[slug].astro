@@ -87,10 +87,10 @@ const formattedDate = review.data.date.toLocaleDateString("lv-LV", {
           </section>
 
           {
-            review.data.tastingNotes && (
+            review.data.evaluationCriteria && (
               <section class="panel sidebar-card">
-                <h3>Degustācijas piezīmes</h3>
-                <TastingNotes notes={review.data.tastingNotes} />
+                <h3>Vērtēšanas kritēriji</h3>
+                <TastingNotes notes={review.data.evaluationCriteria} />
               </section>
             )
           }

@@ -18,12 +18,14 @@ const reviews = defineCollection({
     tags: z.array(z.string()).default([]),
     pros: z.array(z.string()).default([]),
     cons: z.array(z.string()).default([]),
-    tastingNotes: z
+    evaluationCriteria: z
       .object({
-        smoke: z.number().min(1).max(5),
-        salt: z.number().min(1).max(5),
-        texture: z.number().min(1).max(5),
-        acidity: z.number().min(1).max(5),
+        taste: z.string(),
+        salt: z.string(),
+        texture: z.string(),
+        oil: z.string(),
+        priceQuality: z.string(),
+        verdict: z.string(),
       })
       .optional(),
   }),

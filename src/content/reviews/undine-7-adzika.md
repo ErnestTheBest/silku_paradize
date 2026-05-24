@@ -19,11 +19,13 @@ pros:
 cons:
   - Sed do eiusmod tempor.
   - Incididunt ut labore.
-tastingNotes:
-  smoke: 1
-  salt: 3
-  texture: 3
-  acidity: 3
+evaluationCriteria:
+  taste: "cik siļķe kopumā ir garšīga, vai gribas ēst tālāk"
+  salt: "pārsālīta / par maz sālīta / tieši laikā"
+  texture: "maiga, blīva, sausa, jūk ārā, gumijota"
+  oil: "vai eļļa vai marināde ir patīkama, nav pārāk trekna vai nomācoša, nepārsit zivs garšu"
+  priceQuality: "vai produkts ir savas cenas vērts"
+  verdict: "vai pirktu vēlreiz"
 ---
 
 Lorem ipsum dolor sit amet, consectetur adipiscing elit. Integer nec odio praesent libero, sed cursus ante dapibus diam.
