@@ -5,7 +5,7 @@ brand: "Undine 7"
 type: "Marinēta"
 origin: "Latvija"
 date: 2026-04-30
-excerpt: "Pagaidu pieraksts par Undine 7 siļķu fileju ar marinētiem dārzeņiem. Teksts vēl ir lorem ipsum režīmā."
+excerpt: "Garšīga siļķe ar foršiem dārzeņiem, bet manai gaumei tā ir par sāļu."
 coverImage: "undine-7-fileja-square"
 coverAlt: "Undine 7 siļķu fileja ar marinētiem dārzeņiem apaļā iepakojumā"
 tags:
@@ -13,30 +13,30 @@ tags:
   - Marinēta
   - Dārzeņi
 pros:
-  - Lorem ipsum dolor sit amet.
-  - Consectetur adipiscing elit.
+  - Laba tekstūra.
+  - Garšīgi marinēti dārzeņi.
+  - Foršs iepakojums.
+  - Labs marinējums.
+  - Normāla cena.
 cons:
-  - Sed do eiusmod tempor.
-  - Incididunt ut labore.
+  - Manai gaumei pārāk sāļa.
 evaluationCriteria:
   taste:
-    score: 3
-    note: "cik siļķe kopumā ir garšīga, vai gribas ēst tālāk"
+    score: 4
+    note: "Siļķe ir garšīga, un marinētie dārzeņi labi papildina kopējo garšu."
   salt:
-    score: 3
-    note: "pārsālīta / par maz sālīta / tieši laikā"
+    score: 2
+    note: "Manai gaumei produkts ir pārāk sāļš."
   texture:
-    score: 3
-    note: "maiga, blīva, sausa, jūk ārā, gumijota"
+    score: 4
+    note: "Tekstūra ir laba un patīkama."
   oil:
-    score: 3
-    note: "vai eļļa vai marināde ir patīkama, nav pārāk trekna vai nomācoša, nepārsit zivs garšu"
+    score: 4
+    note: "Marinējums ir labs un labi sader ar dārzeņiem."
   priceQuality:
-    score: 3
-    note: "vai produkts ir savas cenas vērts"
-  verdict: "vai pirktu vēlreiz"
+    score: 4
+    note: "Cena ir normāla, lai gan pārlieku sāļā garša neļauj vērtēt augstāk."
+  verdict: "Drīzāk pirktu vēlreiz, bet tā nav siļķe, pie kuras gribētos atgriezties katru reizi."
 ---
 
-Lorem ipsum dolor sit amet, consectetur adipiscing elit. Integer nec odio praesent libero, sed cursus ante dapibus diam.
-
-Sed nisi. Nulla quis sem at nibh elementum imperdiet. Duis sagittis ipsum, praesent mauris.
+Undine 7 siļķu fileja ar marinētiem dārzeņiem ir garšīga siļķe ar labu tekstūru, foršu iepakojumu un patiešām veiksmīgiem dārzeņiem. Marinējums šeit strādā labi, cena šķiet normāla, un kopumā produkts atstāj patīkamu iespaidu. Diemžēl manai gaumei sāls ir par daudz, tāpēc es to drīzāk nopirktu vēlreiz, bet ne kā siļķi, pie kuras gribētos atgriezties katru reizi.
