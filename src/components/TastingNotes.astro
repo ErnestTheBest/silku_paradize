@@ -1,35 +1,42 @@
 ---
+import { getCriteriaAverage, type EvaluationCriteria } from "../data/reviewRating";
+
 interface Props {
-  notes: {
-    taste: string;
-    salt: string;
-    texture: string;
-    oil: string;
-    priceQuality: string;
-    verdict: string;
-  };
+  notes: EvaluationCriteria;
 }
 
 const { notes } = Astro.props;
+const averageRating = getCriteriaAverage(notes);
 const rows = [
   ["Garša", notes.taste],
   ["Sāls", notes.salt],
   ["Tekstūra", notes.texture],
   ["Eļļa / marināde", notes.oil],
   ["Cena / kvalitāte", notes.priceQuality],
-  ["Kopējais spriedums", notes.verdict],
 ] as const;
 ---
 
+<div class="criteria-summary">
+  <span>Vidējais vērtējums</span>
+  <strong>{averageRating.toFixed(1)}</strong>
+</div>
+
 <div class="note-grid">
   {
-    rows.map(([label, value]) => (
+    rows.map(([label, criterion]) => (
       <div class="note">
         <div class="note-top">
           <span>{label}</span>
+          <span class="note-score">{criterion.score.toFixed(1)}</span>
         </div>
-        <p>{value}</p>
+        <p>{criterion.note}</p>
       </div>
     ))
   }
+  <div class="note">
+    <div class="note-top">
+      <span>Kopējais spriedums</span>
+    </div>
+    <p>{notes.verdict}</p>
+  </div>
 </div>

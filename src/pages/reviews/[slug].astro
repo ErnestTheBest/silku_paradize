@@ -4,6 +4,7 @@ import BaseLayout from "@layouts/BaseLayout.astro";
 import Rating from "@components/Rating.astro";
 import TastingNotes from "@components/TastingNotes.astro";
 import { getReviewImageSrc } from "../../data/reviewImages";
+import { getCriteriaAverage } from "../../data/reviewRating";
 
 export async function getStaticPaths() {
   const reviews = await getCollection("reviews");
@@ -20,9 +21,10 @@ interface Props {
 
 const { review } = Astro.props;
 const { Content } = await render(review);
+const rating = getCriteriaAverage(review.data.evaluationCriteria);
 const allReviews = (await getCollection("reviews"))
   .filter((entry) => entry.data.slug !== review.data.slug)
-  .sort((a, b) => b.data.rating - a.data.rating)
+  .sort((a, b) => getCriteriaAverage(b.data.evaluationCriteria) - getCriteriaAverage(a.data.evaluationCriteria))
   .slice(0, 3);
 const base = import.meta.env.BASE_URL;
 const heroImage = getReviewImageSrc(review.data.heroImage ?? review.data.coverImage);
@@ -57,7 +59,7 @@ const formattedDate = review.data.date.toLocaleDateString("lv-LV", {
               <time datetime={review.data.date.toISOString()}>{formattedDate}</time>
             </div>
             <h1>{review.data.title}</h1>
-            <Rating value={review.data.rating} />
+            <Rating value={rating} />
             <Content />
 
             <div class="pro-con-grid">
@@ -109,7 +111,7 @@ const formattedDate = review.data.date.toLocaleDateString("lv-LV", {
                     <div>
                       <div class="meta-line">{entry.data.type}</div>
                       <h4>{entry.data.title}</h4>
-                      <Rating value={entry.data.rating} label={false} />
+                      <Rating value={getCriteriaAverage(entry.data.evaluationCriteria)} label={false} />
                     </div>
                   </a>
                 ))

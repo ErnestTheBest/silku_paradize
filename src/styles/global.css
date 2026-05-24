@@ -695,6 +695,30 @@ select {
   padding: 20px;
 }
 
+.criteria-summary {
+  display: flex;
+  align-items: baseline;
+  justify-content: space-between;
+  gap: 12px;
+  margin-bottom: 16px;
+  border-radius: var(--radius-control);
+  background: var(--surface-mist);
+  padding: 12px 14px;
+}
+
+.criteria-summary span {
+  color: var(--primary);
+  font-size: 0.82rem;
+  font-weight: 800;
+  text-transform: uppercase;
+}
+
+.criteria-summary strong {
+  color: var(--ink);
+  font-size: 1.45rem;
+  line-height: 1;
+}
+
 .note-grid {
   display: grid;
   gap: 14px;
@@ -713,9 +737,18 @@ select {
 }
 
 .note-top {
+  display: flex;
+  align-items: baseline;
+  justify-content: space-between;
+  gap: 10px;
   color: var(--primary);
   font-size: 0.9rem;
   font-weight: 800;
+}
+
+.note-score {
+  color: var(--ink);
+  font-size: 0.82rem;
 }
 
 .note p {
