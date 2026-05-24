@@ -588,6 +588,34 @@ select {
   outline: 3px solid rgba(174, 237, 215, 0.72);
 }
 
+.filter-reset {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: 100%;
+  min-height: 44px;
+  border: 1px solid var(--primary);
+  border-radius: var(--radius-control);
+  background: var(--primary);
+  color: white;
+  cursor: pointer;
+  font-size: 0.9rem;
+  font-weight: 800;
+  transition:
+    background-color 160ms ease,
+    transform 160ms ease;
+}
+
+.filter-reset:hover {
+  background: var(--primary-strong);
+  transform: translateY(-1px);
+}
+
+.filter-reset:focus-visible {
+  outline: 3px solid rgba(174, 237, 215, 0.72);
+  outline-offset: 2px;
+}
+
 .empty-state {
   display: none;
   border: 1px dashed var(--outline);
@@ -615,6 +643,7 @@ select {
 
 .detail-hero {
   overflow: hidden;
+  aspect-ratio: 1 / 1;
   border-radius: var(--radius-card);
   background: white;
   box-shadow: var(--shadow);
@@ -622,8 +651,7 @@ select {
 
 .detail-hero img {
   width: 100%;
-  height: min(560px, 58vw);
-  min-height: 340px;
+  height: 100%;
   object-fit: cover;
 }
 

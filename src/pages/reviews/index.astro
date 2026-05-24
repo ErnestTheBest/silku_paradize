@@ -53,6 +53,7 @@ const types = [...new Set(reviews.map((review) => review.data.type))].sort();
             <option value="3.5">3.5+</option>
           </select>
         </div>
+        <button class="filter-reset" type="button" data-reset-filters>Atiestatīt filtrus</button>
       </aside>
 
       <div>
@@ -74,6 +75,7 @@ const types = [...new Set(reviews.map((review) => review.data.type))].sort();
   const brand = gallery?.querySelector<HTMLSelectElement>("[data-brand-filter]");
   const type = gallery?.querySelector<HTMLSelectElement>("[data-type-filter]");
   const rating = gallery?.querySelector<HTMLSelectElement>("[data-rating-filter]");
+  const reset = gallery?.querySelector<HTMLButtonElement>("[data-reset-filters]");
   const empty = gallery?.querySelector<HTMLElement>("[data-empty-state]");
 
   const applyFilters = () => {
@@ -101,4 +103,13 @@ const types = [...new Set(reviews.map((review) => review.data.type))].sort();
   brand?.addEventListener("change", applyFilters);
   type?.addEventListener("change", applyFilters);
   rating?.addEventListener("change", applyFilters);
+  reset?.addEventListener("click", () => {
+    if (search) search.value = "";
+    if (brand) brand.value = "";
+    if (type) type.value = "";
+    if (rating) rating.value = "0";
+
+    applyFilters();
+    search?.focus();
+  });
 </script>
