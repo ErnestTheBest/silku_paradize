@@ -13,6 +13,8 @@ npm-debug.log*
 yarn-debug.log*
 yarn-error.log*
 pnpm-debug.log*
+/astro-dev.err.log
+/astro-dev.out.log
 
 # Local environment
 .env

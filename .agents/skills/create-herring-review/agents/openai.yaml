@@ -1,0 +1,4 @@
+interface:
+  display_name: "Create Herring Review"
+  short_description: "Create a consistent Latvian herring review"
+  default_prompt: "Use $create-herring-review to add a new product review from my photo and tasting notes."
