@@ -7,6 +7,7 @@ import kaijaSilkuFilejasEllaArGarsvielam from "../assets/reviews/kaija-silku-fil
 import zigmasClassicalSlightlySalted from "../assets/reviews/zigmas-classical-slightly-salted.jpeg";
 import zigmasClassicalSmokeAroma from "../assets/reviews/zigmas-classical-smoke-aroma.jpg";
 import zigmasMatjesAtlantijasSilkuFilejaElla from "../assets/reviews/zigmas-matjes-atlantijas-silku-fileja-ella-square.jpg";
+import viciTradicionalaAtlantijasSilkuFilejaElla from "../assets/reviews/vici-tradicionala-atlantijas-silku-fileja-ella-square.jpg";
 
 const reviewImages = {
   "kaija-gardums-atlantijas-silku-filejas-marinade-square": kaijaGardumsAtlantijasSilkuFilejasMarinade,
@@ -15,6 +16,7 @@ const reviewImages = {
   "kaija-silku-filejas-ella-ar-garsvielam-square": kaijaSilkuFilejasEllaArGarsvielam,
   "undine-7-adzika-square": undineAdzika,
   "undine-7-fileja-square": undineFileja,
+  "vici-tradicionala-atlantijas-silku-fileja-ella-square": viciTradicionalaAtlantijasSilkuFilejaElla,
   "zigmas-classical-slightly-salted": zigmasClassicalSlightlySalted,
   "zigmas-classical-smoke-aroma": zigmasClassicalSmokeAroma,
   "zigmas-matjes-atlantijas-silku-fileja-ella-square": zigmasMatjesAtlantijasSilkuFilejaElla,
