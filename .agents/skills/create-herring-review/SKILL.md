@@ -1,6 +1,6 @@
 ---
 name: create-herring-review
-description: Create and verify a new Silku Paradize herring product review from a product photo and tasting notes. Use when the user asks to add, create, draft, or publish a new review in this repository. Do not use for unrelated site changes or a narrow edit to an existing review.
+description: Create and verify a new Silku Paradize herring product review from a local photo, a public iCloud Photos share link, and tasting notes. Use when the user asks to add, create, draft, or publish a new review in this repository, including when they provide an iCloud photo link as review input. Do not use for unrelated site changes or a narrow edit to an existing review.
 ---
 
 # Create Herring Review
@@ -103,14 +103,40 @@ Write public copy in Latvian unless the user asks for another language.
 
 ## 4. Prepare the image
 
+### Import from iCloud Photos
+
+When the user supplies a public `share.icloud.com/photos/...` link, treat the
+link as authorization to retrieve the shared photo for this review. Run the
+bundled downloader instead of manually reverse-engineering the page:
+
+```text
+node .agents/skills/create-herring-review/scripts/download-icloud-photo.cjs '<icloud-share-url>'
+```
+
+The script opens the JavaScript-only gallery in headless Chromium, completes
+both Download actions, waits for the archive, extracts it to a unique temporary
+directory, and prints JSON containing the original image paths and metadata.
+
+- If sandbox policy requires escalation, make one scoped request for the whole
+  script invocation. Prefer the reusable prefix
+  `node .agents/skills/create-herring-review/scripts/download-icloud-photo.cjs`
+  so later iCloud imports do not require repeated approvals.
+- Do not probe the link through several separate network or browser commands
+  before running the script.
+- Never put the expiring iCloud share URL or its signed asset URL in
+  `coverImage`; import the downloaded original as a local review asset.
+- If the script reports an expired/private link or no supported image, state
+  that exact blocker and ask for a fresh public link.
+
 For a local product photo:
 
 1. Preserve the package, label text, colors, and product details.
 2. Produce an RGB 1200 × 1200 square image unless the user requests another
    treatment.
-3. Prefer `{slug}-square.jpg` and use `{slug}-square` as the image-map key.
-4. Save the asset under `src/assets/reviews/`.
-5. Add the import and key to `src/data/reviewImages.ts`.
+3. Strip EXIF, GPS, and other source metadata from the published asset.
+4. Prefer `{slug}-square.jpg` and use `{slug}-square` as the image-map key.
+5. Save the asset under `src/assets/reviews/`.
+6. Add the import and key to `src/data/reviewImages.ts`.
 
 Use a concise `coverAlt` that identifies the product and visible package. Do not
 repeat "image of" or add details that are not visible.
